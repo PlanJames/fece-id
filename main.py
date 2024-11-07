@@ -1,4 +1,4 @@
 # main.py
-from forms.login.form_login import App
+from forms.login.form_login_designer import App
 
 App()

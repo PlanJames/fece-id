@@ -1,60 +1,29 @@
 import tkinter as tk
-from tkinter import ttk
-import util.generic as utl
+from tkinter import messagebox
+import sqlite3
+from data.base_de_datos import BaseDeDatos  # Asegúrate de tener una función para obtener la conexión de la BD
 
-class FromRegisterDesigner:
-    
-    def Register():
-        pass
 
-    def __init__(self):
-        self.ventana = tk.Tk()
-        self.ventana.title("Registro de usuario")
-        self.ventana.config(bg="#fcfcfc")
-        self.ventana.resizable(width=0, height=0)
-        utl.centrar_ventana(self.ventana,600,450)
+class RegisterUsuario:
 
-        logo =utl.leer_imagen("./images/133566662558833129.jpg", (200, 200))
-        #logo
-        frame_logo = tk.Frame(self.ventana, bd=0, width=300, relief=tk.SOLID, padx=10, pady=10, bg="#3a7ff6")
-        frame_logo.pack(side="left", expand=tk.NO,fill=tk.BOTH)
-        label = tk.Label( frame_logo, image=logo, bg="#3a7ff6" )
-        label.place(x=0, y=0, relwidth=1, relheight=1)
+# Configuración de la ventana de Tkinter
+    ventana = tk.Tk()
+    ventana.title("Registro de Usuario")
+    ventana.geometry("300x200")
 
-        #frame_form
-        frame_form = tk.Frame(self.ventana, bd=0, relief=tk.SOLID, bg="#fcfcfc")
-        frame_form.pack(side="right",expand=tk.YES,fill=tk.BOTH)
+    # Etiquetas y campos de entrada
+    label_username = tk.Label(ventana, text="Nombre de usuario:")
+    label_username.pack(pady=5)
+    entry_username = tk.Entry(ventana)
+    entry_username.pack(pady=5)
 
-        #frame form top
-        frame_form_top = tk.Frame(frame_form, height=50, bd=0, relief=tk.SOLID, bg="black")
-        frame_form_top.pack(side="top",fill=tk.BOTH)
-        title = tk.Label(frame_form_top, text="Registro de usuario", font=("Times", 30), fg="#666a88", bg="#fcfcfc", pady=50)
-        title.pack(expand=tk.YES,fill=tk.BOTH)
+    label_password = tk.Label(ventana, text="Contraseña:")
+    label_password.pack(pady=5)
+    entry_password = tk.Entry(ventana, show="*")
+    entry_password.pack(pady=5)
 
-        #frame form fill
-        frame_form_fill = tk.Frame(frame_form, height=50, bd=0, relief=tk.SOLID, bg="#fcfcfc")
-        frame_form_fill.pack(side="bottom",expand=tk.YES, fill=tk.BOTH)
+    # Botón para registrar
+    btn_registrar = tk.Button(ventana, text="Registrar")
+    btn_registrar.pack(pady=10)
 
-        etiqueta_usuario = tk.Label(frame_form_fill, text="Usuario", font=("Times" ,14) ,fg="#666a88",bg="#fcfcfc", anchor="w")
-        etiqueta_usuario.pack(fill=tk.X, padx=20, pady=5)
-        self.usuario = ttk.Entry(frame_form_fill, font=("Times", 14))
-        self.usuario.pack(fill=tk.X, padx=20, pady=10)
-
-        etiqueta_password = tk.Label(frame_form_fill, text="Contraseña", font=("Times", 14),fg="#666a88", bg="#fcfcfc", anchor="w")
-        etiqueta_password.pack(fill=tk.X, padx=20, pady=5)
-        self.password = ttk.Entry(frame_form_fill, font=("Times", 14))
-        self.password.pack(fill=tk.X, padx=20,pady=10)
-        self.password.config(show="*")
-    
-
-        inicio = tk.Button(frame_form_fill, text="Registrar", font=('Times', 15), bg='#F87474', bd=0, fg="#fff", command=self.register)
-        inicio.pack(fill=tk.X, padx=20, pady=20)
-        inicio.bind("<Return>", (lambda event: self.register()))
-        
-        
-
-        # end frame_form_fill
-        self.ventana.mainloop()
-
-    def register():
-        pass
+    ventana.mainloop()
