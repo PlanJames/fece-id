@@ -1,29 +1,33 @@
 import tkinter as tk
 from tkinter import messagebox
 import sqlite3
-from data.base_de_datos import BaseDeDatos  # Asegúrate de tener una función para obtener la conexión de la BD
+import util.generic as utl
+from tkinter import ttk
+from data.base_de_datos import BaseDeDatos  
 
 
 class RegisterUsuario:
+    
+    def __init__(self):
+        self.ventana = tk.Tk()                             
+        self.ventana.title('Registro')
+        self.ventana.geometry('800x500')
+        self.ventana.config(bg='#fcfcfc')
+        self.ventana.resizable(width=0, height=0)    
+        utl.centrar_ventana(self.ventana,800,500)
 
-# Configuración de la ventana de Tkinter
-    ventana = tk.Tk()
-    ventana.title("Registro de Usuario")
-    ventana.geometry("300x200")
+        #frame form
+        frame_form = tk.Frame(self.ventana, bd=0, relief=tk.SOLID, bg='#fcfcfc')
+        frame_form.pack(side="right",expand=tk.YES,fill=tk.BOTH)
+        
+        #frame form top
+        frame_form_top = tk.Frame(frame_form,height = 50, bd=0, relief=tk.SOLID,bg='black')
+        frame_form_top.pack(side="top",fill=tk.X)
+        title = tk.Label(frame_form_top, text="Registro de usuario",font=('Times', 30), fg="#666a88",bg='#fcfcfc',pady=50)
+        title.pack(expand=tk.YES,fill=tk.BOTH)
 
-    # Etiquetas y campos de entrada
-    label_username = tk.Label(ventana, text="Nombre de usuario:")
-    label_username.pack(pady=5)
-    entry_username = tk.Entry(ventana)
-    entry_username.pack(pady=5)
+        #frame form fill
+        frame_form_fill = tk.Frame(frame_form,height = 50,  bd=0, relief=tk.SOLID,bg='#fcfcfc')
+        frame_form_fill.pack(side="bottom",expand=tk.YES,fill=tk.BOTH)
 
-    label_password = tk.Label(ventana, text="Contraseña:")
-    label_password.pack(pady=5)
-    entry_password = tk.Entry(ventana, show="*")
-    entry_password.pack(pady=5)
-
-    # Botón para registrar
-    btn_registrar = tk.Button(ventana, text="Registrar")
-    btn_registrar.pack(pady=10)
-
-    ventana.mainloop()
+        self.ventana.mainloop()
