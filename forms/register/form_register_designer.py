@@ -4,11 +4,10 @@ import sqlite3
 from tkinter.font import BOLD
 import util.generic as utl
 from tkinter import ttk
-from data.base_de_datos import BaseDeDatos  
 
 class RegisterUsuario:
     def __init__(self, ventana_login_func):
-        self.ventana_login_func = ventana_login_func  # Guardar la función de inicio de sesión
+        self.ventana_login_func = ventana_login_func  # Guarda la funcion de inicio de sesion
 
         self.ventana = tk.Tk()                             
         self.ventana.title('Registro')
@@ -48,7 +47,7 @@ class RegisterUsuario:
         self.second_password.pack(fill=tk.X, padx=20, pady=10)
         self.second_password.config(show="*")
 
-        # Botón de registro
+
         boton_registrar = tk.Button(frame_form_fill, text="Registrar", font=('Times', 15, BOLD), bg='#3a7ff6', bd=0, fg="#fff", command=self.registrar_usuario)
         boton_registrar.pack(fill=tk.X, padx=20, pady=20)
 
@@ -59,12 +58,12 @@ class RegisterUsuario:
         password = self.password.get()
         second_password = self.second_password.get()
 
-        # Verificar si las contraseñas coinciden
+        # Verifica si las contraseñas coinciden
         if password != second_password:
             messagebox.showerror("Error", "Las contraseñas no coinciden.")
             return
 
-        # Conectar con la base de datos y agregar el usuario
+        # Conecta con la base de datos y agregar el usuario
         try:
             conexion = sqlite3.connect("db/usuarios.db")
             cursor = conexion.cursor()
@@ -72,8 +71,8 @@ class RegisterUsuario:
             conexion.commit()
             conexion.close()
             messagebox.showinfo("Éxito", "Usuario registrado exitosamente.")
-            self.ventana.destroy()  # Cerrar la ventana de registro después de la creación
-            self.ventana_login_func()  # Volver a la ventana de inicio de sesión
+            self.ventana.destroy()  # cierra la ventana de registro despues  de crearse la cuenta
+            self.ventana_login_func()  # Volver a la ventana de inicio de sesion
         except sqlite3.IntegrityError:
             messagebox.showerror("Error", "El nombre de usuario ya existe.")
         except Exception as e:
