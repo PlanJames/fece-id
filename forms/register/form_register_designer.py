@@ -4,6 +4,8 @@ import sqlite3
 from tkinter.font import BOLD
 import util.generic as utl
 from tkinter import ttk
+from face_register import FaceRegister  # Import FaceRegister class
+
 
 class RegisterUsuario:
     def __init__(self, ventana_login_func):
@@ -11,10 +13,10 @@ class RegisterUsuario:
 
         self.ventana = tk.Tk()                             
         self.ventana.title('Registro')
-        self.ventana.geometry('800x500')
+        self.ventana.geometry('600x520')
         self.ventana.config(bg='#fcfcfc')
         self.ventana.resizable(width=0, height=0)    
-        utl.centrar_ventana(self.ventana,800,500)
+        utl.centrar_ventana(self.ventana,600,520)
 
         # Frame form
         frame_form = tk.Frame(self.ventana, bd=0, relief=tk.SOLID, bg='#fcfcfc')
@@ -48,15 +50,26 @@ class RegisterUsuario:
         self.second_password.config(show="*")
 
 
-        boton_registrar = tk.Button(frame_form_fill, text="Registrar", font=('Times', 15, BOLD), bg='#3a7ff6', bd=0, fg="#fff", command=self.registrar_usuario)
-        boton_registrar.pack(fill=tk.X, padx=20, pady=20)
+        boton_registrar = tk.Button(frame_form_fill, text="Registrarse", font=('Times', 15, BOLD), bg='#3a7ff6', bd=0, fg="#fff", command=self.registrar_usuario)
+        boton_registrar.pack(fill=tk.X, padx=20, pady=5)
 
+        boton_registrar_rostro = tk.Button(frame_form_fill, text="Registrar Rostro", font=('Times', 15, BOLD), bg='#3a7ff6', bd=0, fg="#fff", command=self.registrar_rostro)
+        boton_registrar_rostro.pack(fill=tk.X, padx=20, pady=10)
+
+        boton_volver = tk.Button(self.ventana, text="Volver", font=('Times', 14, BOLD), bg='#3a7ff6', bd=0, fg="#fff", command=self.volver_al_login)
+        boton_volver.place(x=10, y=10, width=100, height=30)
+    
         self.ventana.mainloop()
 
     def registrar_usuario(self):
         usuario = self.newusuario.get()
         password = self.password.get()
         second_password = self.second_password.get()
+
+        # Verifica si los campos están vacíos
+        if not usuario or not password or not second_password:
+            messagebox.showerror("Error", "Todos los campos son obligatorios.")
+            return
 
         # Verifica si las contraseñas coinciden
         if password != second_password:
@@ -77,3 +90,15 @@ class RegisterUsuario:
             messagebox.showerror("Error", "El nombre de usuario ya existe.")
         except Exception as e:
             messagebox.showerror("Error", f"Ocurrió un error: {e}")
+
+    def registrar_rostro(self):
+        usuario = self.newusuario.get()
+        if not usuario:
+            messagebox.showerror("Error", "Por favor, ingrese un nombre de usuario primero.")
+            return
+        FaceRegister(usuario)
+
+    
+    def volver_al_login(self):
+        self.ventana.destroy()
+        self.ventana_login_func()  # Volver a la ventana de inicio de sesion

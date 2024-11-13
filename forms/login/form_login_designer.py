@@ -5,6 +5,7 @@ import util.generic as utl
 from forms.form_master import MasterPanel
 from forms.register.form_register_designer import RegisterUsuario
 from data.base_de_datos import BaseDeDatos  # Importa la clase de base de datos
+from face_register import FaceRegister  # Import the FaceRegister class
 
 class App:
 
@@ -28,6 +29,10 @@ class App:
             MasterPanel()
         else:
             messagebox.showerror(message="El usuario o la contraseña es incorrecto", title="Mensaje")
+
+    def open_face_register(self):
+        self.ventana.destroy()
+        FaceRegister()
 
     def __init__(self):        
         self.ventana = tk.Tk()                             
